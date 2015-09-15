@@ -1,0 +1,14 @@
+580a717aa0853a0909122eae51aa5957 *DESCRIPTION
+d56935c2a7957434d4675a48ce37c070 *NAMESPACE
+d531f51f9e65e1851ed8bcdcc14c5208 *R/RelCoef.R
+795e6b2324f6f2381b200d75c9566c5d *R/Relatedness-internal.R
+adb62171bde68f49e6110d2c6a0258b8 *data/Cross.rda
+f3a3287505c241fd432f4b9713efa19c *data/Frequencies.rda
+323ce7981f39cad68eb844303689a797 *data/Genotype.rda
+11e398fc3238c4f0528bf5ba0f54ce74 *man/BoucleEMacc.Rd
+45dfab9df492817f50a0cd095d996bf4 *man/Cross.Rd
+9c8740587f0965933c6533437192c3c1 *man/Frequencies.Rd
+8dfa74a0c03eee417747ac5c0380ed13 *man/Genotype.Rd
+6765518a8b712ec1a977a6e2fc2e5104 *man/RelCoef.Rd
+8858cf3dc28325689536966ebaf4bf9c *man/Relatedness-package.Rd
+62b5186f1c9f97fac55a5020501f2f38 *src/BoucleEMacc.c

@@ -1,0 +1,7 @@
+exportPattern("^[[:alpha:]]+")
+useDynLib(Relatedness,BoucleEMacc)
+import(parallel)
+importFrom("grDevices", "dev.new") 
+importFrom("graphics", "layout", "lines", "plot")
+importFrom("stats", "runif")
+importFrom("utils", "combn") 
