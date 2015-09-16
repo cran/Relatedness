@@ -92,13 +92,17 @@ function(IndividualGenom=matrix(0,nrow=0,ncol=0),ParentalLineGenom=matrix(0,nrow
 	}
 
 	#Number of cores selected
-	if (length(NbCores)==0){
-		if (Sys.info()[['sysname']]=="Windows"){
-			NbCores <- 1
-		} else {
+	if (Sys.info()[['sysname']]=="Windows"){
+		NbCores <- 1
+		if (length(NbCores)!=0){
+			print("NbCores > 1 is not supported on Windows, NbCores is set to 1")
+		}
+	} else {
+		if (length(NbCores)==0){
 			NbCores <- detectCores()-1
 		}
 	}
+	
 	Crossing <- t(Crossing)		
 
 	if (length(Combination)==0){

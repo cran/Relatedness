@@ -25,5 +25,5 @@ data(Genotype)
 data(Frequencies)
 data(Cross)
 RelCoef(IndividualGenom=matrix(0,ncol=0,nrow=0),ParentalLineGenom=Genotype,
-Freq=Frequencies,Crossing=Cross,ParentPop=rep(1,20),NbCores=2)
+Freq=Frequencies,Crossing=Cross,ParentPop=rep(1,20),Phased=TRUE,NbCores=2)
 }
