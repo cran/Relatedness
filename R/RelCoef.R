@@ -26,7 +26,7 @@ function(IndividualGenom=matrix(0,nrow=0,ncol=0),ParentalLineGenom=matrix(0,nrow
 			stop("If IndividualGenom is provided, ParentalLineGenom, Crossing and ParentPop cannot be provided")
 		}
 
-		Crossing <- matrix(seq(1:ncol(Genom)),ncol=2)
+		Crossing <- matrix(seq(1:ncol(Genom)),ncol=2,byrow=T)
 
 		ParentPop <- rep(1,ncol(Genom))
 		

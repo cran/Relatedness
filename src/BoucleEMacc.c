@@ -19,7 +19,6 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 	int CptCol , CptLig;
 
 	double* RowSumCV = (double*)malloc(*NbSnp * sizeof(double));
-	double* Tau = (double*)malloc(*NbSnp * *NbConfIBD * sizeof(double));
 	double* ProjDiff = (double*)calloc(*NbConfIBD, sizeof(double));
 	double* DiffDelta = (double*)calloc(*NbConfIBD, sizeof(double));
 	double* deltaold = (double*)calloc(*NbConfIBD, sizeof(double));
