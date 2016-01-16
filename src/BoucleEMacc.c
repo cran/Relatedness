@@ -1,4 +1,5 @@
 #include <R.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,19 +8,17 @@
 
 
 
-void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec , double *Proj , double *delta , double *CondVrais){
+void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec , double *delta , double *CondVrais){
 
 	/* ProbCond est une matrice de taille NbSnp lignes et NbConfIBD colonnes */
 	/* prec est la précision demandée à l'EM */
-	/* Proj est une matrice de projection de taille NbConfIBD lignes et NbConfIBD colonnes */
 	/* delta est un vecteur de taille NbConfIBD (ici 15) et c'est le résultat voulu en sortie */
 	/* CondVrais est une matrice de taille NbSnp lignes est NbConfIBD colonnes */
 
 	/* Les compteur pour les lignes et les colonnes dans les boucles */
 	int CptCol , CptLig;
-
+	
 	double* RowSumCV = (double*)malloc(*NbSnp * sizeof(double));
-	double* ProjDiff = (double*)calloc(*NbConfIBD, sizeof(double));
 	double* DiffDelta = (double*)calloc(*NbConfIBD, sizeof(double));
 	double* deltaold = (double*)calloc(*NbConfIBD, sizeof(double));
 	double Crit;
@@ -31,7 +30,6 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 	/* deltaold est un vecteur enregistrant le delta précédent (taille NbConfIBD) */
 	/* Crit est le critère d'arrêt de la boucle (à comparer à la précision) */
 	/* DiffDelta est la différence entre delta et deltaold après chaque itération */
-	/* ProjDiff est le projeté de la différence sur le noyau */
 	/* Tamp est une variable temporaire permettant les réécriture (toujours mise à 0 après chaque modification) */
 
 	Crit=1;
@@ -87,34 +85,15 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 			//~ fprintf(stderr,"%.20lf ",delta[CptCol]);
  			DiffDelta[CptCol]=deltaold[CptCol]-delta[CptCol];
 		}
-		/* 5 - On projette cette différence sur le noyau en faisant le produit de la matrice Proj et du vecteur DiffDelta */
-		for (CptLig=0 ; CptLig < *NbConfIBD ; CptLig++)
-		{
-			tmplig = CptLig * *NbConfIBD;
-			for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
-			{
-				Tamp += Proj[tmplig + CptCol] * DiffDelta[CptCol];
-			}
-			ProjDiff[CptLig] = Tamp;
-			Tamp = 0;
-		}
 
-		/* Le critère devient la maximum en valeur absolu du vecteur ProjDiff */
+		/* 5 - Le critère devient la norme euclidienne de la différence */
 		for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
 		{
-			if (ProjDiff[CptCol] < 0)
-			{
-				ProjDiff[CptCol]=-ProjDiff[CptCol];
-			}
-			if (Tamp < ProjDiff[CptCol])
-			{
-				Tamp = ProjDiff[CptCol];
-			}
+			Tamp += DiffDelta[CptCol] * DiffDelta[CptCol];
 		}
-		Crit = Tamp;
+		Crit = sqrt(Tamp);
 	}
 	free(RowSumCV);
-	free(ProjDiff);
 	free(DiffDelta);
 	free(deltaold);
 }
