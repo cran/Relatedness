@@ -1,9 +1,9 @@
-f39c040bbe1fb6fa3b0901a339848865 *DESCRIPTION
+82dd058023e0e76d50a53c9ccc0af747 *DESCRIPTION
 d56935c2a7957434d4675a48ce37c070 *NAMESPACE
-20d680a9fc5a4546a4582639e905c5be *R/RelCoef.R
-e6184ac7808e7b70b4db83ee606b7ac3 *R/RelCoefLine.R
+0dc68d4a4616aa4057573de9302965dc *R/RelCoef.R
+eaefa133db44299a7a0c62305bea0238 *R/RelCoefLine.R
 059d0aad05eeaaa204310ba0c2e3984e *R/RelComb.R
-eb042016ab9384db4461a69642f0dbf9 *R/Relatedness-internal.R
+f138b7d46dcebb867d1733c800172acd *R/Relatedness-internal.R
 adb62171bde68f49e6110d2c6a0258b8 *data/Cross.rda
 0518a146528d199cdc9be9bb2d9a51a3 *data/Delta.rda
 f3a3287505c241fd432f4b9713efa19c *data/Frequencies.rda

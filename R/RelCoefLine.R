@@ -34,15 +34,15 @@ stop("Number of Pop frequencies < number of Pop")
 NbLine <- ncol(LineGenom)
 
 #Number of cores selected
-if (Sys.info()[['sysname']]=="Windows"){
-NbCores <- 1
 if (length(NbCores)!=0){
+if (Sys.info()[['sysname']]=="Windows"){
+if (NbCores!=1){
+NbCores <- 1
 print("NbCores > 1 is not supported on Windows, NbCores is set to 1")
 }
-} else {
-if (length(NbCores)==0){
-NbCores <- detectCores()-1
 }
+} else {
+NbCores <- detectCores()-1
 }
 
 if (length(Combination)==0){
