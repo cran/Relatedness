@@ -1,5 +1,5 @@
 exportPattern("^[[:alpha:]]+")
-useDynLib(Relatedness,BoucleEMacc)
+useDynLib(Relatedness,BoucleEMacc,.registration = TRUE)
 import(parallel)
 importFrom("grDevices", "dev.new") 
 importFrom("graphics", "layout", "lines", "plot")

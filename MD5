@@ -1,5 +1,5 @@
-82dd058023e0e76d50a53c9ccc0af747 *DESCRIPTION
-d56935c2a7957434d4675a48ce37c070 *NAMESPACE
+7975a6375dc4a6c1a3b594da446b0644 *DESCRIPTION
+c1bf05a6e2b97e7da4b1162cf4980f46 *NAMESPACE
 0dc68d4a4616aa4057573de9302965dc *R/RelCoef.R
 eaefa133db44299a7a0c62305bea0238 *R/RelCoefLine.R
 059d0aad05eeaaa204310ba0c2e3984e *R/RelComb.R
@@ -16,5 +16,6 @@ f3a3287505c241fd432f4b9713efa19c *data/Frequencies.rda
 486d8d67bed1c0c9147de7627738f42a *man/RelCoef.Rd
 51490987a2ba7ed57e3ee2c777713aab *man/RelCoefLine.Rd
 08e99c357f4ce8cd7757e8aafb8beeb2 *man/RelComb.Rd
-c321cacc1188e7f50551ead740091b1e *man/Relatedness-package.Rd
-55201a3bd1318c4fe61ebeaf5ffd19b8 *src/BoucleEMacc.c
+ce380651f6440be6bd835fd6bffc0f1a *man/Relatedness-package.Rd
+10093a715a45bf780059256ea0aceafb *src/BoucleEMacc.c
+d688809b9efb67edf7253b7a12b3901f *src/registerDynamicSymbol.c

@@ -1,13 +1,13 @@
 Package: Relatedness
 Type: Package
-Title: An Algorithm to Infer Relatedness
-Version: 1.4
-Date: 2016-06-02
-Author: Fabien Laporte
-Maintainer: Fabien Laporte <fabien.laporte@moulon.inra.fr>
-Description: Inference of relatedness coefficients from a bi-allelic genotype matrix using a Maximum Likelihood estimation.
+Title: Maximum Likelihood Estimation of Relatedness using EM Algorithm
+Version: 2.0
+Date: 2017-11-17
+Author: Fabien Laporte, Tristan Mary-Huard
+Maintainer: Fabien Laporte <fabien.laporte@inra.fr>
+Description: Inference of relatedness coefficients from a bi-allelic genotype matrix using a Maximum Likelihood estimation, Laporte, F., Charcosset, A. and Mary-Huard, T. (2017) <doi:10.1111/biom.12634>.
 License: AGPL-3
 NeedsCompilation: yes
-Packaged: 2016-06-03 10:06:23 UTC; fabien
+Packaged: 2017-11-17 08:41:06 UTC; fabien
 Repository: CRAN
-Date/Publication: 2016-06-03 19:07:38
+Date/Publication: 2017-11-17 10:51:45 UTC

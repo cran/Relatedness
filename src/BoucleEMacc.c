@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /* Test de l'EM */
 
@@ -18,12 +19,26 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 	/* Les compteur pour les lignes et les colonnes dans les boucles */
 	int CptCol , CptLig;
 	
+	int it=0;
+	
 	double* RowSumCV = (double*)malloc(*NbSnp * sizeof(double));
 	double* DiffDelta = (double*)calloc(*NbConfIBD, sizeof(double));
+	double* DiffDeltaOld = (double*)calloc(*NbConfIBD, sizeof(double));
+	double* DiffDeltaacc = (double*)calloc(*NbConfIBD, sizeof(double));
 	double* deltaold = (double*)calloc(*NbConfIBD, sizeof(double));
+	double* deltaanc = (double*)calloc(*NbConfIBD, sizeof(double));
+	double* deltaacc = (double*)calloc(*NbConfIBD, sizeof(double));
+	
+	double* r = (double*)calloc(*NbConfIBD, sizeof(double));
+	double* v = (double*)calloc(*NbConfIBD, sizeof(double));
+
+	double sommer2;
+	double sommev2;
+	double Alpha;
 	double Crit;
 	double Tamp;
 
+	bool sommeNeg;
 
 	/* RowSumCV est le vecteur de la somme sur les lignes de CondVrai (taille NbSnp) */
 	/* Tau était une matrice de taille NbSnp lignes et NbConfIBD colonnes (n'est plus necessaire) */
@@ -43,6 +58,7 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 		/* 1 - On enregistre le delta au début de l'itération dans deltaold */
 		for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
 		{
+			deltaanc[CptCol] = deltaold[CptCol];
 			deltaold[CptCol] = delta[CptCol];
 			delta[CptCol] = 0; // necessaire pour l'etape 3
 		}
@@ -83,8 +99,50 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 		{
 			delta[CptCol] /= (double)*NbSnp;
 			//~ fprintf(stderr,"%.20lf ",delta[CptCol]);
- 			DiffDelta[CptCol]=deltaold[CptCol]-delta[CptCol];
+			DiffDeltaOld[CptCol]=DiffDelta[CptCol];
+			r[CptCol]=DiffDelta[CptCol];
+			sommer2 += r[CptCol]*r[CptCol];
+ 			DiffDelta[CptCol]=delta[CptCol]-deltaold[CptCol];
+			v[CptCol]=DiffDelta[CptCol] - DiffDeltaOld[CptCol];
+			sommev2 += v[CptCol]*v[CptCol];
 		}
+		it ++;
+		/* 4bis - On utilise Ravi */
+		if (it==2)
+			{
+                        Alpha = -sqrt(sommer2/sommev2);
+                        //double Alpha = arma::conv_to<double>::from(- sqrt(sum(pow(r,2))/sum(pow(v,2))));
+                        if (Alpha > -1)
+			{
+                        	Alpha = -1;
+                        }	
+			
+			sommeNeg=FALSE;
+				
+			for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
+			{
+				deltaacc[CptCol] = deltaanc[CptCol] - 2*Alpha*r[CptCol] + (Alpha*Alpha) * v[CptCol];
+				DiffDeltaacc[CptCol]=delta[CptCol]-deltaanc[CptCol];
+				sommeNeg = (sommeNeg)||(delta[CptCol]<0);
+			}
+                        //SigmaNew = SigmaAnc - 2*Alpha*r + pow(Alpha,2)*v;
+
+                        if (!sommeNeg)
+			{
+				for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
+				{
+	                        	delta[CptCol]=deltaacc[CptCol];
+					DiffDelta[CptCol]=DiffDeltaacc[CptCol];
+				}
+                        }
+                          
+                          
+                        //crit = max(abs(SigmaNew-SigmaAnc));
+                        it = 0;
+		}
+
+		sommer2=0;
+		sommev2=0;
 
 		/* 5 - Le critère devient la norme euclidienne de la différence */
 		for (CptCol=0 ; CptCol < *NbConfIBD ; CptCol++)
@@ -96,6 +154,11 @@ void BoucleEMacc(double *ProbCond , int *NbConfIBD , int *NbSnp , double *prec ,
 	free(RowSumCV);
 	free(DiffDelta);
 	free(deltaold);
+	free(deltaanc);
+	free(deltaacc);
+	free(DiffDeltaOld);
+	free(DiffDeltaacc);
+	free(v);
+	free(r);
 }
-
 
